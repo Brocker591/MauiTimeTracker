@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MauiTimeTracker"
+             xmlns:viewmodel="clr-namespace:MauiTimeTracker.ViewModel"
+             x:DataType="viewmodel:MainViewModel"
+             x:Class="MauiTimeTracker.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="10"
+            Padding="10,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="150"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Mein Tracker"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="32"
+                HorizontalOptions="Center" />
+            <Label Text="{Binding RunningTotal, StringFormat='{}{0:h\\:mm\\:ss}'}"
+                        FontSize="50" HorizontalTextAlignment="Center" />
+            <Button
+                x:Name="StartTrackerrBtn"
+                Text="Start"
+                WidthRequest="100"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="StartTrackerrBtn_Clicked"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsNotTimerRunning}"
+                Margin="0,10,0,10"/>
+            <Button
+                x:Name="StopTrackerBtn"
+                Text="Pause"
+                WidthRequest="100"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="StopTrackerBtn_Clicked"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsTimerRunning}"
+                Margin="0,10,0,10"/>
+            <Button
+                x:Name="ResetTrackerBtn"
+                Text="Reset"
+                WidthRequest="100"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="ResetTrackerBtn_Clicked"
+                HorizontalOptions="Center"
+                Margin="0,10,0,10"/>
+
+            <CollectionView ItemsSource="{Binding TimeTrackers, Mode=TwoWay}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:TimeTracker">
+                        <Grid Padding="5" HeightRequest="70">
+                            <Frame>
+                                <Grid Padding="0" RowDefinitions="auto" ColumnDefinitions="auto,auto,auto,auto, *">
+                                    <Label Text="Start:"
+                                               Grid.Column="0" 
+                                               Grid.Row="0"
+                                               FontSize="16" 
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"/>
+
+                                    <Label Text="{Binding Start, StringFormat='{}{0:HH:mm:ss}', Mode=TwoWay}"
+                                               Grid.Column="1" 
+                                               Grid.Row="0"
+                                               FontSize="16" 
+                                               Margin="2,0,10,0"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"/>
+                                    <Label Text="End:"
+                                               Grid.Column="2" 
+                                               Grid.Row="0"
+                                               FontSize="16" 
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"/>
+                                    <Label Text="{Binding End, StringFormat='{}{0:HH:mm:ss}', Mode=TwoWay}"
+                                               Grid.Column="3" 
+                                               Grid.Row="0"
+                                               FontSize="16" 
+                                               Margin="2,0,10,0"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"/>
+                                    <Label Text="{Binding TrackingTime, StringFormat='{}{0:h\\:mm\\:ss}', Mode=TwoWay}"
+                                               Grid.Column="4" 
+                                               Grid.Row="0"
+                                               FontSize="16" 
+                                               Margin="10,0,10,0"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
